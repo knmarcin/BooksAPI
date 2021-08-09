@@ -1,11 +1,11 @@
 import json
-from abc import ABC, abstractmethod
-from typing import List
 from books.models import Book
 
 import requests
 
-class BookClass():
+
+class BookClass:
+    google_id = None
     title = None
     authors = None
     published_date = None
@@ -15,35 +15,27 @@ class BookClass():
     thumbnail = None
 
     def save_to_db(self):
-        b = Book(authors=self.authors,
-                 title=self.title,
-                 published_date=self.published_date,
-                 categories=self.categories,
-                 average_rating=self.average_rating,
-                 ratings_count=self.ratings_count,
-                 thumbnail=self.thumbnail)
-        b, created = Book.objects.update_or_create(authors=self.authors,
-                                                   title=self.title,
+        b, created = Book.objects.update_or_create(google_id=self.google_id,
                                                    defaults={
-                                                       'published_date':self.published_date,
-                                                       'average_rating':self.average_rating,
-                                                       'ratings_count':self.ratings_count,
-                                                       'thumbnail':self.thumbnail,
-                                                       'categories':self.categories
-        })
+                                                       'authors': self.authors,
+                                                       'title': self.title,
+                                                       'published_date': self.published_date,
+                                                       'average_rating': self.average_rating,
+                                                       'ratings_count': self.ratings_count,
+                                                       'thumbnail': self.thumbnail,
+                                                       'categories': self.categories
+                                                   })
         b.save()
 
 
-
-class APIConnector():
+class APIConnector:
     def __init__(self, q: str):
         self.q = q
 
-    def get_book_data(self) -> List:
+    def get_book_data(self):
         api_request = requests.get(f"https://www.googleapis.com/books/v1/volumes?q={self.q}")
         data = json.loads(api_request.content)
         j = api_request.json()
-        print(data)
 
         book_item = BookClass()
 
@@ -75,6 +67,10 @@ class APIConnector():
                 pass
             try:
                 book_item.thumbnail = volume_info['imageLinks']['thumbnail']
+            except:
+                pass
+            try:
+                book_item.google_id = data["items"][i]["id"]
             except:
                 pass
 
