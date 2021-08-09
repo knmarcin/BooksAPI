@@ -1,10 +1,15 @@
-from rest_framework import generics, filters
+from rest_framework import generics, filters, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
+from django.http import HttpResponse
 from .filters import CustomSearchFilter
+from .models import Book
+
 
 from .models import Book
 from .serializers import BookSerializer, BookFullSerializer
-
+from utils import connector
 
 class BooksViewSet(generics.ListAPIView):
     queryset = Book.objects.all()
@@ -18,3 +23,9 @@ class BooksViewSet(generics.ListAPIView):
 class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book
     serializer_class = BookFullSerializer
+
+def DownloadBooksFromApi(request, q):
+    c = connector.APIConnector(q=q)
+    c.get_book_data()
+    return HttpResponse(f'<h1>Parameter is {q}</h1>')
+
