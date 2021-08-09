@@ -25,7 +25,11 @@ class BookClass():
         b, created = Book.objects.update_or_create(authors=self.authors,
                                                    title=self.title,
                                                    defaults={
-            'published_date':self.published_date
+                                                       'published_date':self.published_date,
+                                                       'average_rating':self.average_rating,
+                                                       'ratings_count':self.ratings_count,
+                                                       'thumbnail':self.thumbnail,
+                                                       'categories':self.categories
         })
         b.save()
 
