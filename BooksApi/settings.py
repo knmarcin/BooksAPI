@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from . import config
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECRET_KEY is stored in git excluded config.py, for security reasons
-SECRET_KEY = config.secret_key()
+SECRET_KEY = 'pauke%y%(xj$rf&)1lklo1b60-+cs*%es-5+shu7idozsucy9_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,9 +69,7 @@ WSGI_APPLICATION = 'BooksApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # db_config is stored in git excluded config.py, for security reasons
-DATABASES = {
-    'default': config.db_config()
-}
+DATABASES = {'default':dj_database_url.config()}
 
 
 # Password validation
