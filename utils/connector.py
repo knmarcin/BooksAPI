@@ -74,4 +74,7 @@ class APIConnector:
             except:
                 pass
 
-            book_item.save_to_db()
+            try:
+                book_item.save_to_db()
+            except:
+                pass
