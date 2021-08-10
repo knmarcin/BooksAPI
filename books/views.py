@@ -12,7 +12,7 @@ from .serializers import BookSerializer, BookFullSerializer, GetBookSerializer
 from utils import connector
 
 
-class BooksViewSet(generics.ListCreateAPIView):
+class BooksViewSet(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = [DjangoFilterBackend, CustomSearchFilter, filters.OrderingFilter]
