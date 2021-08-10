@@ -21,4 +21,4 @@ class BookFullSerializer(serializers.ModelSerializer):
 
 
 class GetBookSerializer(serializers.Serializer):
-        question = serializers.CharField
+        question = serializers.CharField(max_length=40)
