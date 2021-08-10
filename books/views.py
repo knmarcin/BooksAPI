@@ -34,4 +34,4 @@ def download_books_from_api(request, *args, **kwargs):
         c.get_book_data()
         return redirect('/books/')
     else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
