@@ -18,3 +18,7 @@ class BookFullSerializer(serializers.ModelSerializer):
                   'average_rating',
                   'ratings_count',
                   'thumbnail')
+
+
+class GetBookSerializer(serializers.Serializer):
+    question = serializers.CharField(max_length=40)
