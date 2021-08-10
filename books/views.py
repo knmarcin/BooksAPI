@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from rest_framework import generics, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -25,13 +26,16 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BookFullSerializer
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def download_books_from_api(request, *args, **kwargs):
-    serializer = GetBookSerializer(data=request.data)
-    if serializer.is_valid():
-        q = serializer.validated_data
-        c = connector.APIConnector(q=q.get('id'))
-        c.get_book_data()
-        return redirect('/books/')
-    else:
-        return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'GET':
+        return HttpResponse("hello")
+    elif request.method == 'POST':
+        serializer = GetBookSerializer(data=request.data)
+        if serializer.is_valid():
+            q = serializer.validated_data
+            c = connector.APIConnector(q=q.get('id'))
+            c.get_book_data()
+            return redirect('/books/')
+        else:
+            return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
