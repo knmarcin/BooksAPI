@@ -31,7 +31,7 @@ def download_books_from_api(request, *args, **kwargs):
     q = GetBookSerializer(data=request.data)
     print(q)
     if q.is_valid():
-        c = connector.APIConnector(q=q.data.get('question'))
+        c = connector.APIConnector(q=q.data.get('q'))
         c.get_book_data()
         return Response(status=status.HTTP_200_OK)
     else:
