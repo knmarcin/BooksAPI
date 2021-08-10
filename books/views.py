@@ -34,7 +34,7 @@ def download_books_from_api(request, *args, **kwargs):
         serializer = GetBookSerializer(data=request.data)
         if serializer.is_valid():
             q = serializer.validated_data
-            c = connector.APIConnector(q=q.get('id'))
+            c = connector.APIConnector(q=q['id'])
             c.get_book_data()
             return redirect('/books/')
         else:
