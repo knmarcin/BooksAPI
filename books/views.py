@@ -12,7 +12,7 @@ from .serializers import BookSerializer, BookFullSerializer, GetBookSerializer
 from utils import connector
 
 
-class BooksViewSet(generics.ListAPIView):
+class BooksViewSet(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = [DjangoFilterBackend, CustomSearchFilter, filters.OrderingFilter]
@@ -25,18 +25,12 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book
     serializer_class = BookFullSerializer
 
-
-@api_view(['POST', 'GET'])
-def download_books_from_api(request, *args, **kwargs):
-    if request.method == 'GET':
+@api_view(['POST'])
+def download_books_from_api(self, request, *args, **kwargs):
+    q = GetBookSerializer(data=request.data)
+    if q.is_valid():
+        c = connector.APIConnector(q=q.data.get('question'))
+        c.get_book_data()
         return Response(status=status.HTTP_200_OK)
-
-    elif request.method == 'POST':
-        serializer = GetBookSerializer(data=request.data)
-        if serializer.is_valid():
-            q = serializer.data
-            c = connector.APIConnector(q=q['question'])
-            c.get_book_data()
-            return redirect('/books/')
-        else:
-            return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
