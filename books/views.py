@@ -29,7 +29,8 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
 def download_books_from_api(request, *args, **kwargs):
     serializer = GetBookSerializer(data=request.data)
     if serializer.is_valid():
-        c = connector.APIConnector(q=request.POST['question'])
+        q = serializer.validated_data
+        c = connector.APIConnector(q=q.get('id'))
         c.get_book_data()
         return redirect('/books/')
     else:
