@@ -24,6 +24,7 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book
     serializer_class = BookFullSerializer
 
+
 @api_view(['POST'])
 def download_books_from_api(request, *args, **kwargs):
     serializer = GetBookSerializer(data=request.data)
