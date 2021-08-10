@@ -1,15 +1,13 @@
-from django.http import HttpResponse
 from rest_framework import generics, filters, status
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django_filters.rest_framework import DjangoFilterBackend
+
+from utils import connector
 
 from .filters import CustomSearchFilter
-from django.shortcuts import redirect
-
 from .models import Book
 from .serializers import BookSerializer, BookFullSerializer, GetBookSerializer
-from utils import connector
 
 
 class BooksViewSet(generics.ListAPIView):
