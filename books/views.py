@@ -29,7 +29,7 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
 @api_view(['POST', 'GET'])
 def download_books_from_api(request, *args, **kwargs):
     if request.method == 'GET':
-        return HttpResponse("hello")
+        return Response(status=status.HTTP_200_OK)
     elif request.method == 'POST':
         serializer = GetBookSerializer(data=request.data)
         if serializer.is_valid():
