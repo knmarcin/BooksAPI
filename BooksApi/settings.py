@@ -69,14 +69,7 @@ WSGI_APPLICATION = 'BooksApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # db_config is stored in git excluded config.py, for security reasons
-# DATABASES = {'default':dj_database_url.config()}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
-}
+DATABASES = {'default':dj_database_url.config()}
 
 
 # Password validation
