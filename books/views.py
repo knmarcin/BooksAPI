@@ -1,5 +1,7 @@
 from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import api_view
+
 from .filters import CustomSearchFilter
 from django.shortcuts import redirect
 
@@ -21,7 +23,7 @@ class BooksDetailSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book
     serializer_class = BookFullSerializer
 
-
+@api_view(['POST'])
 def download_books_from_api(request, q):
     c = connector.APIConnector(q=q)
     c.get_book_data()
