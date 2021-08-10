@@ -1,5 +1,6 @@
 from pathlib import Path
 from . import config
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,7 +15,7 @@ SECRET_KEY = config.secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testbooks-api.herokuapp.com']
 
 
 # Application definition
@@ -121,3 +122,5 @@ REST_FRAMEWORK = {
     'ORDERING_PARAM': 'sort',
 
 }
+
+django_heroku.settings(locals())
