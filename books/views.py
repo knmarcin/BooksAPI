@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from utils import connector
 
+#TODO Relative imports are not a good idea
 from .filters import CustomSearchFilter
 from .models import Book
 from .serializers import BookSerializer, BookFullSerializer, GetBookSerializer

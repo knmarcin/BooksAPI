@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECRET_KEY is stored in git excluded config.py, for security reasons
+#TODO use env variables to hide SECRET_KEY
 SECRET_KEY = 'pauke%y%(xj$rf&)1lklo1b60-+cs*%es-5+shu7idozsucy9_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
